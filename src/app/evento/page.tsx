@@ -17,13 +17,71 @@ import {
 } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Vamos falar de amor? ☕ Grupo terapêutico no Kiki Café",
+  title: "Vamos falar de amor? ☕ Grupo terapêutico no Kiki Café · Ipiranga",
   description: `${evento.descricaoCurta} Inscrição rápida e pagamento por PIX.`,
+  alternates: { canonical: "/evento" },
   openGraph: {
     title: "Vamos falar de amor? ☕",
+    url: "/evento",
     description: evento.descricaoCurta,
-    images: [{ url: "/images/grupo.jpg", width: 1400, height: 933 }],
+    images: [{ url: "/images/evento-banner.png", width: 1983, height: 496 }],
   },
+};
+
+const datasIso = ["2026-09-03", "2026-09-10", "2026-09-17", "2026-09-24"];
+
+const eventoJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: site.url },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: evento.nome,
+          item: `${site.url}/evento`,
+        },
+      ],
+    },
+    ...evento.encontros.map((e, i) => ({
+      "@type": "Event",
+      name: `${evento.nome} — Encontro ${i + 1}: ${e.titulo}`,
+      description: `${e.pergunta} Grupo terapêutico conduzido pela psicóloga Marília Santos (CRP 06/110313), no ${evento.local}, Ipiranga — São Paulo.`,
+      startDate: `${datasIso[i]}T19:00:00-03:00`,
+      endDate: `${datasIso[i]}T20:30:00-03:00`,
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      image: `${site.url}/images/evento-banner.png`,
+      inLanguage: "pt-BR",
+      location: {
+        "@type": "Place",
+        name: `${evento.local} — ${evento.sala}`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Rua Bom Pastor, 2224 — Sala 1404",
+          addressLocality: "São Paulo",
+          addressRegion: "SP",
+          addressCountry: "BR",
+        },
+      },
+      organizer: {
+        "@type": "Person",
+        name: "Marília Santos — Psicóloga Clínica",
+        url: site.url,
+      },
+      performer: { "@type": "Person", name: "Marília Santos" },
+      offers: {
+        "@type": "Offer",
+        price: evento.precoPorEncontro.toFixed(2),
+        priceCurrency: "BRL",
+        availability: "https://schema.org/InStock",
+        url: `${site.url}/evento`,
+        validFrom: "2026-08-10",
+      },
+    })),
+  ],
 };
 
 const paraQuem = [
@@ -79,6 +137,10 @@ const faqsEvento = [
 export default function EventoPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventoJsonLd) }}
+      />
       {/* Header enxuto da landing */}
       <header className="absolute inset-x-0 top-0 z-40">
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6">

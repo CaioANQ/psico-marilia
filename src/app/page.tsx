@@ -32,9 +32,9 @@ const servicos = [
     titulo: "Terapia para relacionamentos",
     duracao: "Sessões de 1h20",
     descricao:
-      "Para casais e vínculos que querem melhorar a comunicação, compreender os conflitos e construir uma relação mais consciente — juntos.",
+      "Terapia de casal e de vínculos: para melhorar a comunicação, compreender os conflitos e construir uma relação mais consciente — juntos.",
     imagem: "/images/terapia-relacionamentos.jpg",
-    alt: "Casal em sessão de terapia conversando com a psicóloga",
+    alt: "Casal em sessão de terapia de casal conversando com a psicóloga",
     mensagem: mensagens.relacionamentos,
   },
   {
@@ -107,9 +107,23 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.pergunta,
+    acceptedAnswer: { "@type": "Answer", text: f.resposta },
+  })),
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Header />
       <main>
         {/* ===== HERO ===== */}
@@ -307,10 +321,10 @@ export default function Home() {
               <Reveal delay={100}>
                 <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
                   <p>
-                    Sou a Marília, psicóloga clínica. Atendo pessoas que desejam
-                    compreender e transformar suas formas de amar, se vincular e
-                    se posicionar nas relações — sejam elas afetivas, familiares
-                    ou consigo mesmas.
+                    Sou a Marília, psicóloga clínica no Ipiranga, em São Paulo.
+                    Atendo pessoas que desejam compreender e transformar suas
+                    formas de amar, se vincular e se posicionar nas relações —
+                    sejam elas afetivas, familiares ou consigo mesmas.
                   </p>
                   <p>
                     Questões como dependência emocional, dificuldades nos
