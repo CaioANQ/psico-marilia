@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta — extraída do logo da Marília (rosa aquarelado, ameixa e lilás) */
+  --color-porcelain: #fbf7f4;
+  --color-cream: #fffdfb;
+
+  --color-blush-50: #faf3f5;
+  --color-blush-100: #f6e9ed;
+  --color-blush-200: #efdae1;
+  --color-blush-300: #e4c3cf;
+
+  --color-rose-300: #ddb4c2;
+  --color-rose-400: #ce97ab;
+  --color-rose-500: #bd7f97;
+
+  --color-plum-300: #c99db1;
+  --color-plum-400: #b37e97;
+  --color-plum-500: #9c6380;
+  --color-plum-600: #855069;
+  --color-plum-700: #6e3f56;
+  --color-plum-800: #573043;
+  --color-plum-900: #3f2331;
+
+  --color-lilac-100: #edeaf4;
+  --color-lilac-200: #ddd7e9;
+  --color-lilac-300: #c6bdd8;
+  --color-lilac-500: #9186ac;
+
+  --color-latte-50: #faf5ee;
+  --color-latte-100: #f4eadf;
+  --color-latte-200: #e8d5c0;
+  --color-latte-600: #a9805b;
+  --color-latte-800: #6f4e33;
+
+  --color-ink: #362a31;
+  --color-ink-soft: #6b5a63;
+
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-figtree), system-ui, -apple-system, sans-serif;
+
+  --shadow-soft: 0 10px 40px -12px rgb(63 35 49 / 0.14);
+  --shadow-card: 0 6px 24px -8px rgb(63 35 49 / 0.1);
+  --shadow-lift: 0 24px 60px -20px rgb(63 35 49 / 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-porcelain);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-blush-300);
+  color: var(--color-plum-900);
+}
+
+/* ---- Texturas e fundos ---- */
+
+.wash {
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, rgb(221 180 194 / 0.35), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 30%, rgb(198 189 216 / 0.28), transparent 55%),
+    radial-gradient(40rem 30rem at 50% 110%, rgb(246 233 237 / 0.9), transparent 60%);
+}
+
+.wash-event {
+  background:
+    radial-gradient(56rem 40rem at 90% -10%, rgb(221 180 194 / 0.4), transparent 60%),
+    radial-gradient(48rem 36rem at -10% 40%, rgb(232 213 192 / 0.45), transparent 55%),
+    radial-gradient(44rem 32rem at 50% 115%, rgb(246 233 237 / 0.9), transparent 65%);
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+/* Máscara em arco (janela) para fotos */
+.arch {
+  border-radius: 999px 999px 28px 28px;
+}
+
+/* ---- Animações de entrada ---- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+.float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .float-slow {
+    animation: none;
+  }
+}
+
+/* ---- FAQ (details/summary) ---- */
+
+details.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+details.faq summary .faq-icon {
+  transition: transform 0.3s ease;
+}
+
+details.faq[open] summary .faq-icon {
+  transform: rotate(45deg);
+}
