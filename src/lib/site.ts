@@ -66,8 +66,11 @@ export const evento = {
     /** Chave PIX tipo celular, no formato exigido pelo BR Code */
     chave: "+5511996864135",
     chaveDisplay: "(11) 99686-4135",
-    /** Nome e cidade sem acentos (exigência do padrão PIX/EMV) */
-    nomeRecebedor: "Marilia Santos",
+    /**
+     * Recebedor conforme o QR Code oficial do Bradesco — com estes dados o
+     * payload gerado é idêntico ao do banco (+ valor embutido automaticamente).
+     */
+    nomeRecebedor: "MARILIA DA SILVA E SANTOS",
     cidade: "SAO PAULO",
   },
   /** Endpoint de envio do Google Forms já existente da Marília */

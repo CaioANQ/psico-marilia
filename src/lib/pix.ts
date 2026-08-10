@@ -37,7 +37,8 @@ export function pixPayload({
   const payload =
     [
       emv("00", "01"),
-      emv("26", emv("00", "br.gov.bcb.pix") + emv("01", chave)),
+      // GUI em maiúsculas, igual ao QR Code oficial emitido pelo Bradesco
+      emv("26", emv("00", "BR.GOV.BCB.PIX") + emv("01", chave)),
       emv("52", "0000"),
       emv("53", "986"),
       valor && valor > 0 ? emv("54", valor.toFixed(2)) : "",
