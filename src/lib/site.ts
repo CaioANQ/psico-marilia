@@ -17,7 +17,7 @@ export const site = {
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Rua+Bom+Pastor%2C+2224+-+Ipiranga%2C+S%C3%A3o+Paulo+-+SP",
   },
-  url: "https://psico-marilia.vercel.app",
+  url: "https://www.mariliasantospsicologa.com.br",
 };
 
 export function whatsappUrl(mensagem: string): string {
