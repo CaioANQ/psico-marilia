@@ -180,6 +180,22 @@ export default function EventoPage() {
               </p>
             </Reveal>
           </div>
+
+          {/* Banner oficial do evento */}
+          <div className="mx-auto mt-12 max-w-5xl px-4 sm:mt-16 sm:px-6">
+            <Reveal delay={420}>
+              <Image
+                src="/images/evento-banner.png"
+                alt="Convite oficial do evento Vamos falar de amor? — um encontro para compreender, ressignificar e transformar a forma como amamos, com café e quitutes"
+                width={1983}
+                height={496}
+                priority
+                quality={90}
+                sizes="(max-width: 1024px) 100vw, 976px"
+                className="w-full rounded-2xl border-4 border-cream shadow-lift sm:rounded-[1.75rem] sm:border-8"
+              />
+            </Reveal>
+          </div>
         </section>
 
         {/* ===== PARA QUEM ===== */}
