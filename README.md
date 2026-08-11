@@ -47,6 +47,37 @@ Textos das seções ficam em `src/app/page.tsx` (home) e `src/app/evento/page.ts
 
 Deploy contínuo na **Vercel**: todo push na branch `main` publica automaticamente.
 
+## Erro "Falha ao verificar seu navegador" no Instagram (Código 705)
+
+**Sintoma:** ao abrir o link do site pelo navegador embutido do Instagram (ou de
+outros apps, como Facebook/TikTok), aparece uma tela preta com
+*"Ponto de verificação de segurança da Vercel"* e *"Falha ao verificar seu
+navegador — Código 705"*. Em navegadores normais (Safari/Chrome) o site abre.
+
+**Causa:** não é um bug do site. É o **Firewall da Vercel** servindo um desafio
+de segurança antes da página — pelo **Bot Filter / Bot Protection** (que a
+Vercel ativa por padrão em projetos novos) ou pelo **Attack Challenge Mode**.
+Navegadores embutidos de apps não conseguem completar o desafio JavaScript e
+ficam presos nessa tela. Nada no código dispara ou remove esse bloqueio — a
+correção é uma configuração do projeto na Vercel.
+
+**Correção (efeito imediato, sem precisar de redeploy):**
+
+1. Acesse [vercel.com](https://vercel.com) → projeto **psico-marilia** → aba **Firewall**;
+2. Se **Attack Challenge Mode** estiver ativado (botão no topo da página), **desative**;
+3. Em **Configure** → seção **Bot Filter / Bot Management**: desative o desafio
+   ou mude a ação de **Challenge** para **Log**;
+4. Em **Custom Rules**, remova/ajuste qualquer regra com ação **Challenge**;
+5. Salve/publique (**Save/Publish**) e teste abrindo o link por uma DM do Instagram.
+
+Alternativa pelo terminal (requer login na conta Vercel):
+
+```bash
+npx vercel login
+npx vercel link --yes --project psico-marilia
+npx vercel firewall attack-mode disable --yes
+```
+
 ## Domínio próprio (mariliasantospsicologa.com.br)
 
 O domínio atual aponta para o Wix. Para usar este site no lugar:
