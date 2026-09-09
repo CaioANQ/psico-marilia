@@ -3,7 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import InscricaoCard from "@/components/evento/InscricaoCard";
-import { evento, formatBRL, mensagens, site, whatsappUrl } from "@/lib/site";
+import {
+  datasDisponiveisDisplay,
+  encontrosDisponiveis,
+  evento,
+  formatBRL,
+  mensagens,
+  site,
+  whatsappUrl,
+} from "@/lib/site";
 import {
   ArrowRightIcon,
   CalendarIcon,
@@ -28,8 +36,6 @@ export const metadata: Metadata = {
   },
 };
 
-const datasIso = ["2026-09-03", "2026-09-10", "2026-09-17", "2026-09-24"];
-
 const eventoJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -45,12 +51,14 @@ const eventoJsonLd = {
         },
       ],
     },
-    ...evento.encontros.map((e, i) => ({
+    // Apenas os encontros que ainda vão acontecer — encontros já realizados
+    // não devem aparecer como eventos disponíveis nos resultados de busca.
+    ...encontrosDisponiveis.map((e) => ({
       "@type": "Event",
-      name: `${evento.nome} — Encontro ${i + 1}: ${e.titulo}`,
+      name: `${evento.nome} — Encontro ${evento.encontros.indexOf(e) + 1}: ${e.titulo}`,
       description: `${e.pergunta} Grupo terapêutico conduzido pela psicóloga Marília Santos (CRP 06/110313), no ${evento.local}, Ipiranga — São Paulo.`,
-      startDate: `${datasIso[i]}T19:00:00-03:00`,
-      endDate: `${datasIso[i]}T20:30:00-03:00`,
+      startDate: `${e.iso}T19:00:00-03:00`,
+      endDate: `${e.iso}T20:30:00-03:00`,
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
       image: `${site.url}/images/evento-banner.png`,
@@ -213,7 +221,7 @@ export default function EventoPage() {
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-plum-800">
                 <span className="inline-flex items-center gap-2 rounded-full bg-cream/90 px-4 py-2.5 shadow-card">
                   <CalendarIcon className="h-4 w-4 text-latte-600" />
-                  3, 10, 17 e 24 de setembro
+                  {datasDisponiveisDisplay}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full bg-cream/90 px-4 py-2.5 shadow-card">
                   <ClockIcon className="h-4 w-4 text-latte-600" />
@@ -321,22 +329,51 @@ export default function EventoPage() {
                 <Reveal
                   key={e.id}
                   delay={i * 90}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-7 backdrop-blur-sm transition-colors hover:bg-white/10"
+                  className={`group relative overflow-hidden rounded-3xl border p-7 backdrop-blur-sm transition-colors ${
+                    e.encerrado
+                      ? "border-white/5 bg-white/[0.02]"
+                      : "border-white/10 bg-white/5 hover:bg-white/10"
+                  }`}
                 >
                   <span
                     aria-hidden
-                    className="font-display absolute -top-3 -right-1 text-[7rem] leading-none font-bold text-white/5 transition-colors group-hover:text-white/10"
+                    className={`font-display absolute -top-3 -right-1 text-[7rem] leading-none font-bold transition-colors ${
+                      e.encerrado
+                        ? "text-white/[0.03]"
+                        : "text-white/5 group-hover:text-white/10"
+                    }`}
                   >
                     {i + 1}
                   </span>
-                  <p className="inline-flex items-center gap-2 rounded-full bg-rose-300/15 px-3.5 py-1.5 text-xs font-bold tracking-wide text-rose-300 uppercase">
-                    <CoffeeIcon className="h-3.5 w-3.5" />
-                    Encontro {i + 1} · {e.dataLonga}
-                  </p>
-                  <h3 className="font-display mt-4 text-2xl font-semibold text-white">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p
+                      className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold tracking-wide uppercase ${
+                        e.encerrado
+                          ? "bg-white/5 text-blush-200/45 line-through"
+                          : "bg-rose-300/15 text-rose-300"
+                      }`}
+                    >
+                      <CoffeeIcon className="h-3.5 w-3.5" />
+                      Encontro {i + 1} · {e.dataLonga}
+                    </p>
+                    {e.encerrado && (
+                      <span className="inline-flex items-center rounded-full border border-white/15 px-3 py-1 text-[0.7rem] font-bold tracking-wide text-blush-200/60 uppercase">
+                        Já aconteceu
+                      </span>
+                    )}
+                  </div>
+                  <h3
+                    className={`font-display mt-4 text-2xl font-semibold ${
+                      e.encerrado ? "text-white/40" : "text-white"
+                    }`}
+                  >
                     {e.titulo}
                   </h3>
-                  <p className="mt-3 leading-relaxed text-blush-200/85">
+                  <p
+                    className={`mt-3 leading-relaxed ${
+                      e.encerrado ? "text-blush-200/40" : "text-blush-200/85"
+                    }`}
+                  >
                     {e.pergunta}
                   </p>
                 </Reveal>

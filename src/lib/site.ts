@@ -41,24 +41,28 @@ export type Encontro = {
   id: string;
   data: string;
   dataLonga: string;
+  /** Data ISO (usada no schema.org do Google) */
+  iso: string;
   titulo: string;
   pergunta: string;
   /** Valor exato da opção no Google Forms — não alterar */
   optionValue: string;
+  /** Encontro que já aconteceu: aparece no site, mas sem inscrição */
+  encerrado?: boolean;
 };
 
 export const evento = {
   nome: "Vamos falar de amor?",
   slug: "evento",
   descricaoCurta:
-    "Grupo terapêutico sobre vínculos e formas de amar, conduzido pela psicóloga Marília Santos — 4 encontros no Kiki Café, em setembro.",
+    "Grupo terapêutico sobre vínculos e formas de amar, conduzido pela psicóloga Marília Santos — 4 encontros no Kiki Café, em setembro e outubro.",
   precoPorEncontro: 65,
   local: "Kiki Café",
   sala: "Sala 1404",
   endereco: "Rua Bom Pastor, 2224 · Ipiranga – São Paulo/SP",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Rua+Bom+Pastor%2C+2224+-+Ipiranga%2C+S%C3%A3o+Paulo+-+SP",
-  mes: "Setembro",
+  mes: "setembro e outubro",
   diaSemana: "quintas-feiras",
   horario: "19h às 20h30",
   duracao: "90 minutos",
@@ -82,20 +86,29 @@ export const evento = {
     email: "entry.1823395644",
     encontros: "entry.838914633",
   },
+  /**
+   * Datas dos encontros. Os `optionValue` são os rótulos originais das opções
+   * do Google Forms e NÃO podem ser alterados — o formulário rejeita valores
+   * fora da lista. Cada opção continua identificando o encontro pelo número e
+   * pelo tema, mesmo quando a data do site muda.
+   */
   encontros: [
     {
       id: "e1",
       data: "03/09",
       dataLonga: "3 de setembro",
+      iso: "2026-09-03",
       titulo: "Por que amamos como amamos?",
       pergunta:
         "Onde aprendemos, pela primeira vez, o que significa amar e ser amado?",
       optionValue: "03/09 - Encontro 1 - Porque amamos como amamos",
+      encerrado: true,
     },
     {
       id: "e2",
       data: "10/09",
       dataLonga: "10 de setembro",
+      iso: "2026-09-10",
       titulo: "Quando o amor encontra o medo",
       pergunta:
         "Por que algumas relações despertam tanto medo, ansiedade ou necessidade de controle?",
@@ -103,22 +116,32 @@ export const evento = {
     },
     {
       id: "e3",
-      data: "17/09",
-      dataLonga: "17 de setembro",
+      data: "24/09",
+      dataLonga: "24 de setembro",
+      iso: "2026-09-24",
       titulo: "As histórias que levamos para o amor",
       pergunta: "O que carregamos conosco quando estamos em um relacionamento?",
       optionValue: "17/09 - Encontro 3 - As histórias que levamos para o amor",
     },
     {
       id: "e4",
-      data: "24/09",
-      dataLonga: "24 de setembro",
+      data: "08/10",
+      dataLonga: "8 de outubro",
+      iso: "2026-10-08",
       titulo: "Amar de forma mais consciente",
       pergunta: "É possível amar sem deixar de ser quem somos?",
       optionValue: "24/09 - Encontro 4 - Amar de forma mais consciente",
     },
   ] satisfies Encontro[],
 };
+
+/** Encontros ainda disponíveis para inscrição (os que não aconteceram). */
+export const encontrosDisponiveis = evento.encontros.filter((e) => !e.encerrado);
+
+/** Ex.: "10/09 · 24/09 · 08/10" */
+export const datasDisponiveisDisplay = encontrosDisponiveis
+  .map((e) => e.data)
+  .join(" · ");
 
 export function formatBRL(valor: number): string {
   return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });

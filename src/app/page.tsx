@@ -456,7 +456,7 @@ export default function Home() {
                   <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-plum-800">
                     <span className="inline-flex items-center gap-2">
                       <CalendarIcon className="h-4 w-4 text-latte-600" />
-                      Quintas de setembro
+                      Quintas de {evento.mes}
                     </span>
                     <span className="inline-flex items-center gap-2">
                       <ClockIcon className="h-4 w-4 text-latte-600" />
