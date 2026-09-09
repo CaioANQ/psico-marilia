@@ -27,7 +27,10 @@ export async function POST(request: Request) {
   const email = (body.email ?? "").trim();
   const encontros = Array.isArray(body.encontros) ? body.encontros : [];
 
-  const validOptions = new Set(evento.encontros.map((e) => e.optionValue));
+  // Encontros já realizados não aceitam mais inscrição
+  const validOptions = new Set(
+    evento.encontros.filter((e) => !e.encerrado).map((e) => e.optionValue),
+  );
   const selecionados = encontros.filter((e) => validOptions.has(e));
 
   if (!nome || !telefone || !email || selecionados.length === 0) {

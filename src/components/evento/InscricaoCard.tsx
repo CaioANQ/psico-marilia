@@ -58,6 +58,8 @@ export default function InscricaoCard() {
   }, [etapa, payload]);
 
   function toggleEncontro(optionValue: string) {
+    const encontro = evento.encontros.find((e) => e.optionValue === optionValue);
+    if (!encontro || encontro.encerrado) return;
     setErro(null);
     setSelecionados((atual) =>
       atual.includes(optionValue)
@@ -381,35 +383,55 @@ export default function InscricaoCard() {
               return (
                 <label
                   key={e.id}
-                  className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition-all ${
-                    ativo
-                      ? "border-plum-500 bg-blush-50 shadow-card"
-                      : "border-blush-200 bg-white hover:border-blush-300"
+                  className={`flex items-start gap-3 rounded-2xl border-2 p-4 transition-all ${
+                    e.encerrado
+                      ? "cursor-not-allowed border-blush-100 bg-blush-50/40 opacity-60"
+                      : ativo
+                        ? "cursor-pointer border-plum-500 bg-blush-50 shadow-card"
+                        : "cursor-pointer border-blush-200 bg-white hover:border-blush-300"
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={ativo}
+                    disabled={e.encerrado}
                     onChange={() => toggleEncontro(e.optionValue)}
                     className="sr-only"
                   />
                   <span
                     aria-hidden
                     className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
-                      ativo
-                        ? "border-plum-600 bg-plum-600 text-white"
-                        : "border-blush-300 bg-white text-transparent"
+                      e.encerrado
+                        ? "border-blush-200 bg-blush-100 text-transparent"
+                        : ativo
+                          ? "border-plum-600 bg-plum-600 text-white"
+                          : "border-blush-300 bg-white text-transparent"
                     }`}
                   >
                     <CheckIcon className="h-3 w-3" />
                   </span>
                   <span>
-                    <span className="block text-xs font-bold tracking-wide text-rose-500 uppercase">
+                    <span
+                      className={`block text-xs font-bold tracking-wide uppercase ${
+                        e.encerrado
+                          ? "text-ink-soft/60 line-through"
+                          : "text-rose-500"
+                      }`}
+                    >
                       {e.dataLonga}
                     </span>
-                    <span className="mt-0.5 block text-sm leading-snug font-semibold text-plum-900">
+                    <span
+                      className={`mt-0.5 block text-sm leading-snug font-semibold ${
+                        e.encerrado ? "text-ink-soft/70" : "text-plum-900"
+                      }`}
+                    >
                       {e.titulo}
                     </span>
+                    {e.encerrado && (
+                      <span className="mt-1.5 inline-flex items-center rounded-full bg-latte-100 px-2.5 py-0.5 text-[0.7rem] font-bold tracking-wide text-latte-800 uppercase">
+                        Já aconteceu
+                      </span>
+                    )}
                   </span>
                 </label>
               );
