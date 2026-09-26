@@ -6,6 +6,8 @@ export const site = {
   nome: "Marília Santos",
   titulo: "Psicóloga Clínica",
   crp: "06/110313",
+  /** Anos de experiência clínica — aparece na home e na landing do evento */
+  anosExperiencia: 17,
   telefoneDisplay: "(11) 99686-4135",
   telefoneE164: "5511996864135",
   email: "",

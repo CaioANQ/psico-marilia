@@ -404,8 +404,9 @@ export default function EventoPage() {
                   Psicóloga Clínica · CRP {site.crp}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  Há mais de 15 anos acompanhando pessoas em suas formas de
-                  amar, se vincular e se posicionar nas relações.
+                  Há mais de {site.anosExperiencia} anos acompanhando pessoas
+                  em suas formas de amar, se vincular e se posicionar nas
+                  relações.
                 </p>
                 <Link
                   href="/"
