@@ -175,7 +175,7 @@ export default function Home() {
                 <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
                   <li className="inline-flex items-center gap-2">
                     <HeartIcon className="h-4 w-4 text-rose-400" />
-                    +15 anos de experiência clínica
+                    +{site.anosExperiencia} anos de experiência clínica
                   </li>
                   <li className="inline-flex items-center gap-2">
                     <VideoIcon className="h-4 w-4 text-rose-400" />
@@ -299,7 +299,7 @@ export default function Home() {
               </div>
               <div className="absolute -right-4 -bottom-6 rounded-2xl bg-cream p-4 shadow-card sm:-right-8">
                 <p className="font-display text-3xl font-semibold text-plum-700">
-                  +15
+                  +{site.anosExperiencia}
                 </p>
                 <p className="text-xs text-ink-soft">
                   anos de
