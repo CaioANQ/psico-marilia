@@ -62,7 +62,7 @@ export const evento = {
   endereco: "Rua Bom Pastor, 2224 · Ipiranga – São Paulo/SP",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Rua+Bom+Pastor%2C+2224+-+Ipiranga%2C+S%C3%A3o+Paulo+-+SP",
-  mes: "setembro e outubro",
+  mes: "outubro",
   diaSemana: "quintas-feiras",
   horario: "19h às 20h30",
   duracao: "90 minutos",
@@ -113,6 +113,7 @@ export const evento = {
       pergunta:
         "Por que algumas relações despertam tanto medo, ansiedade ou necessidade de controle?",
       optionValue: "10/09 - Encontro 2 - Quando o amor encontra o medo",
+      encerrado: true,
     },
     {
       id: "e3",
@@ -122,6 +123,7 @@ export const evento = {
       titulo: "As histórias que levamos para o amor",
       pergunta: "O que carregamos conosco quando estamos em um relacionamento?",
       optionValue: "17/09 - Encontro 3 - As histórias que levamos para o amor",
+      encerrado: true,
     },
     {
       id: "e4",
@@ -138,10 +140,11 @@ export const evento = {
 /** Encontros ainda disponíveis para inscrição (os que não aconteceram). */
 export const encontrosDisponiveis = evento.encontros.filter((e) => !e.encerrado);
 
-/** Ex.: "10/09 · 24/09 · 08/10" */
-export const datasDisponiveisDisplay = encontrosDisponiveis
-  .map((e) => e.data)
-  .join(" · ");
+/** Ex.: "10/09 · 24/09 · 08/10" — ou "8 de outubro", se sobrar só um. */
+export const datasDisponiveisDisplay =
+  encontrosDisponiveis.length === 1
+    ? encontrosDisponiveis[0].dataLonga
+    : encontrosDisponiveis.map((e) => e.data).join(" · ");
 
 export function formatBRL(valor: number): string {
   return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
