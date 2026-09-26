@@ -8,7 +8,7 @@ inscrição integrada ao Google Forms e pagamento via **PIX** (QR Code + copia e
 
 | Rota | Descrição |
 | --- | --- |
-| `/` | Site institucional: atendimentos, sobre, quando buscar terapia, como funciona, FAQ e contato |
+| `/` | Site institucional: atendimentos, sobre, avaliações do Google, quando buscar terapia, como funciona, FAQ e contato |
 | `/evento` | Landing do evento: os 4 encontros, local, inscrição em 2 etapas e pagamento PIX |
 | `/api/inscricao` | Recebe a inscrição e registra no Google Forms existente da Marília |
 
@@ -30,6 +30,17 @@ Praticamente tudo que muda com frequência está em **`src/lib/site.ts`**:
 
 Textos das seções ficam em `src/app/page.tsx` (home) e `src/app/evento/page.tsx` +
 `src/components/evento/InscricaoCard.tsx` (evento).
+
+### Avaliações do Google
+
+As avaliações exibidas na home (seção `#avaliacoes`, selo no topo e no card do
+evento) ficam em **`src/lib/avaliacoes.ts`**: nota, total e a lista de depoimentos
+(copiados na íntegra da ficha do Google, com nomes abreviados). Quando chegarem
+avaliações novas, atualize `google.total`/`google.nota` e acrescente o texto na
+lista — a ordem da lista é a ordem do carrossel.
+
+> Não marcar as avaliações com schema.org (`Review`/`AggregateRating`): o Google
+> proíbe dados estruturados de avaliações copiadas de outro site.
 
 ## Como funciona a inscrição do evento
 

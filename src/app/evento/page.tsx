@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import InscricaoCard from "@/components/evento/InscricaoCard";
+import Estrelas from "@/components/avaliacoes/Estrelas";
+import { google } from "@/lib/avaliacoes";
 import {
   datasDisponiveisDisplay,
   encontrosDisponiveis,
@@ -19,6 +21,7 @@ import {
   ClockIcon,
   CoffeeIcon,
   FlowerIcon,
+  GoogleIcon,
   HeartIcon,
   MapPinIcon,
   WhatsAppIcon,
@@ -403,6 +406,19 @@ export default function EventoPage() {
                 <p className="mt-1 text-sm font-medium text-ink-soft">
                   Psicóloga Clínica · CRP {site.crp}
                 </p>
+                <Link
+                  href="/#avaliacoes"
+                  className="mt-2 inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-plum-800"
+                >
+                  <GoogleIcon className="h-4 w-4" />
+                  <Estrelas className="h-3.5 w-3.5" />
+                  <span>
+                    <strong className="font-semibold text-plum-900">
+                      {google.nota}
+                    </strong>{" "}
+                    · {google.total} avaliações
+                  </span>
+                </Link>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                   Há mais de {site.anosExperiencia} anos acompanhando pessoas
                   em suas formas de amar, se vincular e se posicionar nas

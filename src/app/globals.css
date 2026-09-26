@@ -36,6 +36,9 @@
   --color-ink: #362a31;
   --color-ink-soft: #6b5a63;
 
+  /* Estrelas das avaliações — mesmo dourado usado pelo Google */
+  --color-gold: #fabb05;
+
   --font-display: var(--font-fraunces), "Georgia", serif;
   --font-sans: var(--font-figtree), system-ui, -apple-system, sans-serif;
 
@@ -134,6 +137,13 @@ body {
   .float-slow {
     animation: none;
   }
+}
+
+/* ---- Avaliações ---- */
+
+/* Página não rola por trás da avaliação aberta em tela cheia */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 /* ---- FAQ (details/summary) ---- */

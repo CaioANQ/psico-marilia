@@ -4,6 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import Reveal from "@/components/Reveal";
+import CarrosselAvaliacoes from "@/components/avaliacoes/CarrosselAvaliacoes";
+import Estrelas from "@/components/avaliacoes/Estrelas";
+import { avaliacoes, google } from "@/lib/avaliacoes";
 import { evento, formatBRL, mensagens, site, whatsappUrl } from "@/lib/site";
 import {
   ArrowRightIcon,
@@ -12,6 +15,7 @@ import {
   ClockIcon,
   CoffeeIcon,
   FlowerIcon,
+  GoogleIcon,
   HeartIcon,
   MapPinIcon,
   VideoIcon,
@@ -171,8 +175,26 @@ export default function Home() {
                   </Link>
                 </div>
               </Reveal>
-              <Reveal delay={320}>
-                <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
+              <Reveal delay={300}>
+                <a
+                  href="#avaliacoes"
+                  className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-cream/80 py-1.5 pr-4 pl-1.5 text-sm text-ink-soft shadow-card backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-lift"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
+                    <GoogleIcon className="h-4 w-4" />
+                  </span>
+                  <Estrelas className="h-3.5 w-3.5" />
+                  <span>
+                    <strong className="font-semibold text-plum-900">
+                      {google.nota}
+                    </strong>{" "}
+                    · {google.total} avaliações
+                    <span className="hidden sm:inline"> no Google</span>
+                  </span>
+                </a>
+              </Reveal>
+              <Reveal delay={360}>
+                <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
                   <li className="inline-flex items-center gap-2">
                     <HeartIcon className="h-4 w-4 text-rose-400" />
                     +{site.anosExperiencia} anos de experiência clínica
@@ -355,6 +377,75 @@ export default function Home() {
                 </ul>
               </Reveal>
             </div>
+          </div>
+        </section>
+
+        {/* ===== AVALIAÇÕES ===== */}
+        <section id="avaliacoes" className="scroll-mt-24 bg-cream py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid items-end gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
+              <Reveal className="max-w-2xl">
+                <p className="text-sm font-semibold tracking-[0.18em] text-rose-500 uppercase">
+                  Avaliações
+                </p>
+                <h2 className="font-display mt-3 text-3xl font-semibold text-plum-900 sm:text-4xl">
+                  Palavras de quem já caminhou comigo
+                </h2>
+                <p className="mt-4 text-lg text-ink-soft">
+                  Relatos deixados espontaneamente no Google por pessoas que
+                  passaram pelo consultório.
+                </p>
+              </Reveal>
+
+              <Reveal delay={120}>
+                <div className="rounded-3xl border border-blush-100 bg-porcelain p-6 shadow-card sm:w-80">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-ink-soft">
+                    <GoogleIcon className="h-5 w-5" />
+                    Avaliações no Google
+                  </p>
+                  <div className="mt-3 flex items-center gap-4">
+                    <p className="font-display text-5xl leading-none font-semibold text-plum-900">
+                      {google.nota}
+                    </p>
+                    <div>
+                      <Estrelas className="h-5 w-5" />
+                      <p className="mt-1 text-sm text-ink-soft">
+                        {google.total} avaliações
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-blush-200/70 pt-4 text-sm font-semibold">
+                    <a
+                      href={google.perfilUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-plum-600 transition-colors hover:text-plum-800"
+                    >
+                      Ver no Google
+                      <ArrowRightIcon className="h-4 w-4 -rotate-45" />
+                    </a>
+                    <a
+                      href={google.avaliarUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ink-soft transition-colors hover:text-plum-800"
+                    >
+                      Deixar uma avaliação
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={160} className="mt-12">
+              <CarrosselAvaliacoes avaliacoes={avaliacoes}>
+                <p className="max-w-md text-xs leading-relaxed text-ink-soft/80">
+                  Nomes abreviados para preservar quem avaliou. Cada processo
+                  terapêutico é único — os relatos refletem experiências
+                  individuais.
+                </p>
+              </CarrosselAvaliacoes>
+            </Reveal>
           </div>
         </section>
 
