@@ -64,7 +64,7 @@ export const evento = {
   endereco: "Rua Bom Pastor, 2224 · Ipiranga – São Paulo/SP",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Rua+Bom+Pastor%2C+2224+-+Ipiranga%2C+S%C3%A3o+Paulo+-+SP",
-  mes: "outubro",
+  mes: "setembro e outubro",
   diaSemana: "quintas-feiras",
   horario: "19h às 20h30",
   duracao: "90 minutos",
@@ -135,6 +135,7 @@ export const evento = {
       titulo: "Amar de forma mais consciente",
       pergunta: "É possível amar sem deixar de ser quem somos?",
       optionValue: "24/09 - Encontro 4 - Amar de forma mais consciente",
+      encerrado: true,
     },
   ] satisfies Encontro[],
 };
@@ -142,11 +143,16 @@ export const evento = {
 /** Encontros ainda disponíveis para inscrição (os que não aconteceram). */
 export const encontrosDisponiveis = evento.encontros.filter((e) => !e.encerrado);
 
+/** Há algum encontro ainda aberto para inscrição? */
+export const inscricoesAbertas = encontrosDisponiveis.length > 0;
+
 /** Ex.: "10/09 · 24/09 · 08/10" — ou "8 de outubro", se sobrar só um. */
 export const datasDisponiveisDisplay =
-  encontrosDisponiveis.length === 1
-    ? encontrosDisponiveis[0].dataLonga
-    : encontrosDisponiveis.map((e) => e.data).join(" · ");
+  encontrosDisponiveis.length === 0
+    ? "Encontros realizados"
+    : encontrosDisponiveis.length === 1
+      ? encontrosDisponiveis[0].dataLonga
+      : encontrosDisponiveis.map((e) => e.data).join(" · ");
 
 export function formatBRL(valor: number): string {
   return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });

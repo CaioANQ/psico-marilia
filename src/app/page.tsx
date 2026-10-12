@@ -7,7 +7,14 @@ import Reveal from "@/components/Reveal";
 import CarrosselAvaliacoes from "@/components/avaliacoes/CarrosselAvaliacoes";
 import Estrelas from "@/components/avaliacoes/Estrelas";
 import { avaliacoes, google } from "@/lib/avaliacoes";
-import { evento, formatBRL, mensagens, site, whatsappUrl } from "@/lib/site";
+import {
+  evento,
+  formatBRL,
+  inscricoesAbertas,
+  mensagens,
+  site,
+  whatsappUrl,
+} from "@/lib/site";
 import {
   ArrowRightIcon,
   CalendarIcon,
@@ -564,7 +571,7 @@ export default function Home() {
                     href="/evento"
                     className="group inline-flex items-center gap-3 rounded-full bg-plum-700 px-8 py-4 text-base font-semibold text-white shadow-card transition-all hover:-translate-y-0.5 hover:bg-plum-800 hover:shadow-lift"
                   >
-                    Conhecer o evento e se inscrever
+                    {inscricoesAbertas ? "Conhecer o evento e se inscrever" : "Conhecer o evento"}
                     <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>

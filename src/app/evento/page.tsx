@@ -10,6 +10,7 @@ import {
   encontrosDisponiveis,
   evento,
   formatBRL,
+  inscricoesAbertas,
   mensagens,
   site,
   whatsappUrl,
@@ -173,12 +174,14 @@ export default function EventoPage() {
               </span>
             </span>
           </Link>
-          <a
-            href="#inscricao"
-            className="hidden items-center gap-2 rounded-full bg-plum-700 px-6 py-3 text-sm font-semibold text-white shadow-card transition-all hover:-translate-y-0.5 hover:bg-plum-800 sm:inline-flex"
-          >
-            Quero me inscrever
-          </a>
+          {inscricoesAbertas && (
+            <a
+              href="#inscricao"
+              className="hidden items-center gap-2 rounded-full bg-plum-700 px-6 py-3 text-sm font-semibold text-white shadow-card transition-all hover:-translate-y-0.5 hover:bg-plum-800 sm:inline-flex"
+            >
+              Quero me inscrever
+            </a>
+          )}
         </div>
       </header>
 
@@ -241,16 +244,25 @@ export default function EventoPage() {
               </div>
             </Reveal>
             <Reveal delay={320}>
-              <a
-                href="#inscricao"
-                className="group mt-10 inline-flex items-center gap-3 rounded-full bg-plum-700 px-9 py-4.5 text-lg font-bold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-plum-800"
-              >
-                Garantir minha vaga
-                <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </a>
-              <p className="mt-4 text-sm text-ink-soft">
-                Vagas limitadas — o grupo é intimista de propósito. 😉
-              </p>
+              {inscricoesAbertas ? (
+                <>
+                  <a
+                    href="#inscricao"
+                    className="group mt-10 inline-flex items-center gap-3 rounded-full bg-plum-700 px-9 py-4.5 text-lg font-bold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-plum-800"
+                  >
+                    Garantir minha vaga
+                    <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </a>
+                  <p className="mt-4 text-sm text-ink-soft">
+                    Vagas limitadas — o grupo é intimista de propósito. 😉
+                  </p>
+                </>
+              ) : (
+                <p className="mx-auto mt-10 max-w-md rounded-2xl bg-cream/90 px-6 py-4 text-sm leading-relaxed font-medium text-plum-800 shadow-card">
+                  Os 4 encontros já aconteceram. Quer ser avisada(o) quando
+                  vier a próxima turma? Chama a gente no WhatsApp. 💌
+                </p>
+              )}
             </Reveal>
           </div>
 
@@ -491,7 +503,28 @@ export default function EventoPage() {
             </div>
 
             <Reveal delay={150} className="mt-10">
-              <InscricaoCard />
+              {inscricoesAbertas ? (
+                <InscricaoCard />
+              ) : (
+                <div className="rounded-[2rem] bg-cream/90 p-8 text-center shadow-card backdrop-blur sm:p-10">
+                  <HeartIcon className="mx-auto h-8 w-8 text-rose-400" />
+                  <h3 className="font-display mt-3 text-2xl font-semibold text-plum-900">
+                    Inscrições encerradas
+                  </h3>
+                  <p className="mx-auto mt-2 max-w-md leading-relaxed text-ink-soft">
+                    Os encontros desta turma já foram realizados. Se você quer
+                    participar de uma próxima, fala com a Marília no WhatsApp.
+                  </p>
+                  <a
+                    href={whatsappUrl(mensagens.duvidaEvento)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-full bg-plum-700 px-7 py-3 text-sm font-semibold text-white shadow-card transition-all hover:-translate-y-0.5 hover:bg-plum-800"
+                  >
+                    Avisar-me da próxima turma
+                  </a>
+                </div>
+              )}
             </Reveal>
 
             <Reveal className="mt-8 text-center">
@@ -544,13 +577,15 @@ export default function EventoPage() {
                 Se você sente que é hora de compreender melhor a sua forma de
                 amar, esse espaço foi feito para você.
               </p>
-              <a
-                href="#inscricao"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cream px-8 py-4 text-base font-bold text-plum-800 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-lift"
-              >
-                Quero me inscrever
-                <ArrowRightIcon className="h-5 w-5" />
-              </a>
+              {inscricoesAbertas && (
+                <a
+                  href="#inscricao"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-cream px-8 py-4 text-base font-bold text-plum-800 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-lift"
+                >
+                  Quero me inscrever
+                  <ArrowRightIcon className="h-5 w-5" />
+                </a>
+              )}
             </Reveal>
           </div>
         </section>
